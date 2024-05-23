@@ -51,6 +51,24 @@ address buildMorseTree() {
     root->right->left->right->right = createNode('Y');
     root->right->right->left->left = createNode('Z');
     root->right->right->left->right = createNode('Q');
+//    root->left->right->right->right->right = createNode('1');
+//    root->left->left->right->right->right = createNode('2');
+//    root->left->left->left->right->right = createNode('3');
+//    root->left->left->left->left->right = createNode('4');
+//    root->left->left->left->left->left = createNode('5');
+//    root->right->left->left->left->left = createNode('6');
+//    root->right->right->left->left->left = createNode('7');
+//    root->right->right->right->left->left = createNode('8');
+//    root->right->right->right->right->left = createNode('9');
+//    root->right->right->right->right->right = createNode('0');
+    
+//    root->left->right->left->right->left->right = createNode('.');
+//    root->right->right->left->left->right->right = createNode(',');
+//    root->left->left->right->right->left->left = createNode('?');
+//    root->right->left->right->left->right->right = createNode('!');
+//    root->right->right->right->right->left->left->left = createNode(':');
+//    root->right->left->left->left->right = createNode('=');
+//    root->left->right->left->left->right->left = createNode('"');
     return root;
 }
 
@@ -61,9 +79,9 @@ char decodeMorse(address root, char* morseCode) {
     }
     int i = 0;
     while (morseCode[i] != '\0') {
-        if (morseCode[i] == '.' || morseCode[i] == 'z') {
+        if (morseCode[i] == '.') {
             root = root->left;
-        } else if (morseCode[i] == '-' || morseCode[i] == 'x') {
+        } else if (morseCode[i] == '-') {
             root = root->right;
         } else {
             return '\0'; // Jika karakter tidak valid, kembalikan null
@@ -77,14 +95,13 @@ int main() {
     address morseTree = buildMorseTree();
 
     printf("Masukkan pesan Morse (gunakan z untuk titik dan x untuk strip, spasi antara karakter, dua spasi untuk kata baru):\n");
-    char message[100];
     char morseInput[100];
     int j = 0;
     char ch;
+    bool prevSpace = false; // Untuk mendeteksi dua spasi berturut-turut
 
-    // Membaca input karakter demi karakter menggunakan getchar
-    while ((ch = getch()) != '\r') {
-//    	printf("%c", ch);
+    // Membaca input karakter demi karakter menggunakan getch
+    while ((ch = getch()) != '\r'){
         if (ch == 'z') {
             morseInput[j++] = '.';
             printf(".");
@@ -97,23 +114,25 @@ int main() {
         } else if (ch == '\b') {
             morseInput[j++] = '\b';
             printf("\b");
+        }else if (ch == '/') {
+            morseInput[j++] = '/';
+            printf("/");
         }
         else{
         	continue;
 		}
     }
-//    printf("\n%s", morseInput[j-1]);
     printf("\n");
 
     // Proses setiap kata Morse dalam pesan secara terpisah
     char* token = strtok(morseInput, " ");
     while (token != NULL) {
-        printf("%c", decodeMorse(morseTree, token));
-        token = strtok(NULL, " ");
-        if (token != NULL && *token == ' ') {
+        if (strcmp(token, "/") == 0) {
             printf(" ");
-            token = strtok(NULL, " ");
+        } else {
+            printf("%c", decodeMorse(morseTree, token));
         }
+        token = strtok(NULL, " ");
     }
 
     printf("\n");
@@ -121,11 +140,3 @@ int main() {
     return 0;
 }
 
-
-//... -.. .-/.--. .-. - -.-
-
-//int main(){
-//	printf("SDA PRTK");
-//	printf("\n... -.. .-/.--. .-. - -.-");
-//	return 0;
-//}
