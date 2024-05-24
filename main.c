@@ -48,8 +48,18 @@ int main() {
 					selectedMenuDecode = selectMenuDecode();
     				switch(selectedMenuDecode){
 	    				case 0:
-	    					system("cls");
-	    					printf("input char: ");scanf(" %c", &cipher); //decodeMorse();
+                            system("cls");
+                            printf("Masukkan pesan yang ingin diterjemahkan ke sandi Morse:\n");
+                            char message[100];
+                            fgets(message, sizeof(message), stdin);
+                            message[strcspn(message, "\n")] = 0; // Hapus newline
+
+                            char* morseResult = translateToMorse(morseTree, message);
+                            printf("Hasil Morse: %s\n", morseResult);
+
+                            free(morseResult); // Membebaskan memori yang dialokasikan
+
+                            spaceToContinue();
 	    					break;
 	    				case 1:
 	    					system("cls");
