@@ -10,11 +10,14 @@
 
 int main() {
 	char cipher;
-    int selectedMenuUtama, selectedMenuEncode, selectedMenuDecode;
+    int selectedMenuUtama, selectedMenuEncode, selectedMenuDecode, selectedMenuWriteToFile;
     address morseTree = buildMorseTree();
-    
+    header();
+    spaceToContinue();
+//	system("cls");
+	header();
+
     do{
-    	system("cls");
     	selectedMenuUtama = selectMenuUtama();
     	switch(selectedMenuUtama){
 	    	system("cls");
@@ -23,18 +26,30 @@ int main() {
 	    			selectedMenuEncode = selectMenuEncode();
 	    			switch(selectedMenuEncode){
 	    				case 0:
-	    					system("cls");
-							printf("Masukkan pesan Morse (gunakan z untuk titik dan x untuk strip, spasi antara karakter, garis miring untuk kata baru):\n");
-    
-						    char* inputan = readMorseInput();
-						    printf("\n");
-						
-						    
-							char* hasil = decodeMorse(morseTree, inputan);
-						    printf("%s", hasil);
-						    
-						    spaceToContinue();
+	    					do{
+								moveToLine(30, 0);
+							    char* inputan = readMorseInput();
+							    
+							    printf("\n");
+							
+								char* hasil = decodeMorse(morseTree, inputan);
+							    printf("%s", hasil);
+							    
+							    selectedMenuWriteToFile = selectMenuWriteToFile();
+							    switch(selectedMenuWriteToFile){
+							    	case 0:
+							    		break;
+							    	case 1:
+							    		printf("\ndisini input nama file dan nulis ke file");
+							    		spaceToContinue();
+							    		break;
+							    	
+								}
+							}while(selectedMenuWriteToFile != 2 && selectedMenuWriteToFile != 1);
+							system("cls");
+							header();
 							break;
+							
 	    				case 1:
 	    					system("cls");
 	    					printf("input nama file: ");scanf(" %c", &cipher); //encodeFromFileMorse();

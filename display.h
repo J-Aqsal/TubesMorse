@@ -21,4 +21,20 @@ int selectMenuDecode();
 
 // Menunggu user menekan spasi untuk melanjutkan
 void spaceToContinue();
+
+//
+void moveToLine(int line, int column);
+
+
+void displayMenuWriteToFile(int selected);
+
+
+int selectMenuWriteToFile();
+
+
+void header();
+
+void hideCursor();
+
+void showCursor();
 #endif
