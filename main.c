@@ -10,7 +10,7 @@
 
 int main() {
 	char cipher;
-    int selectedMenuUtama, selectedMenuEncode, selectedMenuDecode, selectedMenuWriteToFile;
+    int selectedMenuUtama, selectedMenuEncode, selectedMenuDecode, selectedMenuWriteToFile, selectedWriteToFile;
     address morseTree = buildMorseTree();
     header();
     spaceToContinue();
@@ -63,7 +63,9 @@ int main() {
 					selectedMenuDecode = selectMenuDecode();
     				switch(selectedMenuDecode){
 	    				case 0:
-                            system("cls");
+	    					do {
+	    						moveToLine(30, 0);
+	    						                        
                             printf("Masukkan pesan yang ingin diterjemahkan ke sandi Morse:\n");
                             char message[100];
                             fgets(message, sizeof(message), stdin);
@@ -74,7 +76,19 @@ int main() {
 
                             free(morseResult); // Membebaskan memori yang dialokasikan
 
-                            spaceToContinue();
+                            							    selectedWriteToFile = selectMenuWriteToFile();
+							    switch(selectedWriteToFile){
+							    	case 0:
+							    		break;
+							    	case 1:
+							    		printf("\ndisini input nama file dan nulis ke file");
+							    		spaceToContinue();
+							    		break;
+							    	
+								}
+							}while(selectedWriteToFile != 2 && selectedWriteToFile != 1);
+							system("cls");
+							header();
 	    					break;
 	    				case 1:
 	    					system("cls");

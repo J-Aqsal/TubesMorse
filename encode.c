@@ -26,7 +26,9 @@ int encodeMorse(address root, char ch, char* morseCode, int depth) {
 
 // Fungsi untuk mengubah kata menjadi sandi Morse dan mengembalikannya sebagai string
 char* translateToMorse(address morseTree, const char* message) {
-    char morseCode[100];
+    showCursor();
+    printf("Masukkan pesan yang ingin diterjemahkan ke sandi Morse:\n");
+	char morseCode[100];
     char* result = (char*)malloc(1000 * sizeof(char)); // Alokasi memori untuk hasil Morse
     result[0] = '\0'; // Inisialisasi string kosong
 
