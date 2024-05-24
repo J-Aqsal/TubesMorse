@@ -81,13 +81,13 @@ address buildMorseTree() {
     root->right->right->right->right->left->left = createNode('\0');
     
     // Simbol
+    root->right->left->left->left->right = createNode('=');
+    root->left->left->right->right->left->left = createNode('?');
+    root->left->right->left->left->right->left = createNode('"');
     root->left->right->left->right->left->right = createNode('.');
     root->right->right->left->left->right->right = createNode(',');
-    root->left->left->right->right->left->left = createNode('?');
     root->right->left->right->left->right->right = createNode('!');
     root->right->right->right->right->left->left->left = createNode(':');
-    root->right->left->left->left->right = createNode('=');
-    root->left->right->left->left->right->left = createNode('"');
     
     return root;
 }
@@ -141,7 +141,9 @@ char* readMorseInput(){
     static char morseInput[255];
     int j = 0;
     char ch;
-
+    showCursor();
+	printf("Masukkan pesan Morse (gunakan z untuk titik dan x untuk strip, spasi antara karakter, garis miring untuk kata baru):\n");
+	printf("                                                 \n                                                 \n                                                \n                                                \n                                                \n                                                \n                                                \n                                                \n\033[A\033[A\033[A\033[A\033[A\033[A\033[A\033[A");
     // Membaca input karakter demi karakter menggunakan getch
     while ((ch = getch()) != '\r') {
         if (ch == 'z') {
@@ -162,7 +164,7 @@ char* readMorseInput(){
             morseInput[j++] = '/';
             printf("/");
         } else {
-        	printf("%c", ch);
+//        	printf("%c", ch);
             continue;
         }
     }
