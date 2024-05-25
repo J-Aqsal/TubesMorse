@@ -61,7 +61,7 @@ void displayMenuUtama(int selectedUtama) {
 // Tampilan menu encode
 void displayMenuEncode(int selectedEncode) { // morse to char
 	moveToLine(top, right);
-    printf("=== ENCODE ===");
+    printf("=== DECODE ===");
 	moveToLine(top+1, right);
     printf("%s Input morse                                             ", (selectedEncode == 0) ? "[>]" : "[ ]");
 	moveToLine(top+2, right);
@@ -71,7 +71,7 @@ void displayMenuEncode(int selectedEncode) { // morse to char
 // Tampilan menu decode
 void displayMenuDecode(int selectedDecode) {
 	moveToLine(top, right);
-    printf("=== DECODE ===");
+    printf("=== ENCODE ===");
 	moveToLine(top+1, right);
     printf("%s Input character                                             ", (selectedDecode == 0) ? "[>]" : "[ ]");
 	moveToLine(top+2, right);
@@ -82,7 +82,7 @@ void displayMenuWriteToFile(int selected) {
 	moveToLine(35, 0);
 
     // Menampilkan menu dengan pilihan yang disorot
-    printf("\n%s Input Morse Again\n", (selected == 0) ? "[>]" : "[ ]");
+    printf("\n%s Input Again\n", (selected == 0) ? "[>]" : "[ ]");
     printf("%s Write result into file\n", (selected == 1) ? "[>]" : "[ ]");
     printf("%s Back to menu\n", (selected == 2) ? "[>]" : "[ ]");
 }
@@ -111,6 +111,40 @@ int selectMenuWriteToFile() {
     }
     return selected;
 }
+
+void displayMenuAfterSave(int selected) {
+	moveToLine(35, 0);
+
+    // Menampilkan menu dengan pilihan yang disorot
+    printf("\n%s Input Again\n", (selected == 0) ? "[>]" : "[ ]");
+    printf("%s Back to menu\n", (selected == 1) ? "[>]" : "[ ]");
+}
+
+int selectMenuAfterSave() {
+    int ch;
+    int selected = 0;
+
+    // Tampilkan pertama kali
+    displayMenuAfterSave(selected);
+
+    while (1) {
+        ch = getch();
+        if (ch == 72) { // atas
+            selected = (selected == 0) ? 2 : --selected;
+        } else if (ch == 80) { // bawah
+            selected = (selected == 2) ? 0 : ++selected;
+        } else if (ch == 13 || ch == 77) { // Enter
+            break;
+        } else if (ch == 75) { // Kiri
+            selected = 3;
+            break;
+        }
+        // Perbarui tampilan menu dengan pilihan yang diperbarui
+        displayMenuAfterSave(selected);
+    }
+    return selected;
+}
+
 int selectedUtama = 0;
 int selectMenuUtama(){
     int ch;

@@ -7,10 +7,10 @@ LeftChar=1
 Order=0,5,4,8,1,2,7,6
 Focused=6
 [Editor_0]
-CursorCol=42
-CursorRow=62
-TopLine=46
-LeftChar=1
+CursorCol=57
+CursorRow=88
+TopLine=74
+LeftChar=22
 [Editor_1]
 CursorCol=1
 CursorRow=48

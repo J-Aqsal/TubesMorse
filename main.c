@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <conio.h>
 #include <windows.h>
 #include "encode.h"
@@ -6,100 +8,103 @@
 #include "fromToFile.h"
 #include "display.h"
 
-
-
 int main() {
-	char cipher;
-    int selectedMenuUtama, selectedMenuEncode, selectedMenuDecode, selectedMenuWriteToFile, selectedWriteToFile;
+    char cipher;
+    char message[1000];
+    int selectedMenuUtama, selectedMenuEncode, selectedMenuDecode, selectedMenuWriteToFile, selectedMenuAfterSave;
     address morseTree = buildMorseTree();
+    
     header();
     spaceToContinue();
-//	system("cls");
-	header();
+    system("cls");
+    header();
 
-    do{
-    	selectedMenuUtama = selectMenuUtama();
-    	switch(selectedMenuUtama){
-	    	system("cls");
-    		case 0:
-    			do{
-	    			selectedMenuEncode = selectMenuEncode();
-	    			switch(selectedMenuEncode){
-	    				case 0:
-	    					do{
-								moveToLine(30, 0);
-							    char* inputan = readMorseInput();
-							    
-							    printf("\n");
-							
-								char* hasil = decodeMorse(morseTree, inputan);
-							    printf("%s", hasil);
-							    
-							    selectedMenuWriteToFile = selectMenuWriteToFile();
-							    switch(selectedMenuWriteToFile){
-							    	case 0:
-							    		break;
-							    	case 1:
-							    		printf("\ndisini input nama file dan nulis ke file");
-							    		spaceToContinue();
-							    		break;
-							    	
-								}
-							}while(selectedMenuWriteToFile != 2 && selectedMenuWriteToFile != 1);
-							system("cls");
-							header();
-							break;
-							
-	    				case 1:
-	    					system("cls");
-	    					printf("input nama file: ");scanf(" %c", &cipher); //encodeFromFileMorse();
-	    					break;
-					}	
-	    			break;
-				}while(selectedMenuEncode != 2);
-				break;
-			case 1:
-				do{
-					selectedMenuDecode = selectMenuDecode();
-    				switch(selectedMenuDecode){
-	    				case 0:
-	    					do {
-	    						moveToLine(30, 0);
-	    						                        
-                            printf("Masukkan pesan yang ingin diterjemahkan ke sandi Morse:\n");
-                            char message[100];
-                            fgets(message, sizeof(message), stdin);
-                            message[strcspn(message, "\n")] = 0; // Hapus newline
+    do {
+        selectedMenuUtama = selectMenuUtama();
+        switch(selectedMenuUtama) {
+            case 0:
+                do {
+                    selectedMenuEncode = selectMenuEncode();
+                    switch(selectedMenuEncode) {
+                        case 0:
+                            system("cls");
+                            header();
+                            moveToLine(15, 80);
+                            char* inputan = readMorseInput();
+                            
+                            printf("\n");
+                            char* hasil = decodeMorse(morseTree, inputan);
+                            printf("%s", hasil);
 
-                            char* morseResult = translateToMorse(morseTree, message);
-                            printf("Hasil Morse: %s\n", morseResult);
+                            do {
+                                selectedMenuWriteToFile = selectMenuWriteToFile();
+                                switch(selectedMenuWriteToFile) {
+                                    case 0:
+                                        break;
+                                    case 1:
+                                        handleFileSaving(hasil);
+                                        spaceToContinue();
+                                        system("cls");
+                                        header();
+                                        break;
+                                }
+                            } while(selectedMenuWriteToFile != 0);
+                            
+                            system("cls");
+                            header();
+                            break;
+                            
+                        case 1:
+                            system("cls");
+                            header();
+                            printf("input nama file: ");
+                            scanf(" %c", &cipher); //encodeFromFileMorse();
+                            break;
+                    }
+                } while(selectedMenuEncode != 2);
+                break;
+                
+            case 1:
+                do {
+                    selectedMenuDecode = selectMenuDecode();
+                    switch(selectedMenuDecode) {
+                        case 0:
+                            do {
+                                inputMessage(message); // Panggil fungsi untuk input pesan
+                                
+                                char* morseResult = translateToMorse(morseTree, message);
+                                moveToLine(17, 80);
+                                printf("Hasil Morse: %s\n", morseResult);
 
-                            free(morseResult); // Membebaskan memori yang dialokasikan
+                                do {
+                                    selectedMenuWriteToFile = selectMenuWriteToFile();
+                                    switch(selectedMenuWriteToFile) {
+                                        case 0:
+                                        	inputMessage(message);
+                                            break;
+                                        case 1:
+                                        	handleFileSaving(morseResult);
+	                                        break;
+                                    }
+                                } while (selectedMenuWriteToFile != 2);
 
-                            							    selectedWriteToFile = selectMenuWriteToFile();
-							    switch(selectedWriteToFile){
-							    	case 0:
-							    		break;
-							    	case 1:
-							    		printf("\ndisini input nama file dan nulis ke file");
-							    		spaceToContinue();
-							    		break;
-							    	
-								}
-							}while(selectedWriteToFile != 2 && selectedWriteToFile != 1);
-							system("cls");
-							header();
-	    					break;
-	    				case 1:
-	    					system("cls");
-	    					printf("input nama file: ");scanf(" %c", &cipher); //decodeFromFileMorse();
-	    					break;
-					}
-	    			break;
-				}while(selectedMenuDecode != 2);
-				break;
-		}
-	}while(selectedMenuUtama != 2);
+                                free(morseResult); // Bebaskan memori yang dialokasikan
+                            } while (selectedMenuWriteToFile != 2);
+                            
+                            system("cls");
+                            header();
+                            break;
+                            
+                        case 1:
+                            system("cls");
+                            header();
+                            printf("input nama file: ");
+                            scanf(" %c", &cipher); //decodeFromFileMorse();
+                            break;
+                    }
+                } while(selectedMenuDecode != 2);
+                break;
+        }
+    } while(selectedMenuUtama != 2);
     return 0;
 }
-

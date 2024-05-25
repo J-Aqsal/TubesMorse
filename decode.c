@@ -142,8 +142,10 @@ char* readMorseInput(){
     int j = 0;
     char ch;
     showCursor();
-	printf("Masukkan pesan Morse (gunakan z untuk titik dan x untuk strip, spasi antara karakter, garis miring untuk kata baru):\n");
-	printf("                                                 \n                                                 \n                                                \n                                                \n                                                \n                                                \n                                                \n                                                \n\033[A\033[A\033[A\033[A\033[A\033[A\033[A\033[A");
+	printf("Masukkan pesan Morse (gunakan z untuk titik dan x untuk strip, \n");
+	moveToLine(16, 80);
+	printf("spasi antara karakter, garis miring untuk kata baru):\n");
+//	printf("                                                 \n                                                 \n                                                \n                                                \n                                                \n                                                \n                                                \n                                                \n\033[A\033[A\033[A\033[A\033[A\033[A\033[A\033[A");
     // Membaca input karakter demi karakter menggunakan getch
     while ((ch = getch()) != '\r') {
         if (ch == 'z') {

@@ -31,6 +31,10 @@ void displayMenuWriteToFile(int selected);
 
 int selectMenuWriteToFile();
 
+void displayMenuAfterSave(int selected);
+
+int selectMenuAfterSave();
+
 
 void header();
 
