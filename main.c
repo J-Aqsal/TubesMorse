@@ -1,10 +1,18 @@
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
+#include <string.h>
 #include "encode.h"
 #include "decode.h"
 #include "fromToFile.h"
 #include "display.h"
+
+// Fungsi untuk menambahkan ekstensi .txt jika belum ada
+void appendTxtExtension(char* filename) {
+    if (strlen(filename) <= 4 || strcmp(filename + strlen(filename) - 4, ".txt") != 0) {
+        strcat(filename, ".txt");
+    }
+}
 
 int main() {
     char cipher;
@@ -49,8 +57,11 @@ int main() {
                             system("cls");
                             printf("input nama file: ");
                             char filenameDecode[255];
-                            scanf("%s", filenameDecode);
+                            fgets(filenameDecode, sizeof(filenameDecode), stdin);
+                            filenameDecode[strcspn(filenameDecode, "\n")] = 0; // Menghapus newline di akhir
+                            appendTxtExtension(filenameDecode); // Tambahkan ekstensi .txt jika belum ada
                             decodeFromFileMorse(morseTree, filenameDecode);
+                            spaceToContinue();
                             break;
                     }
                 } while (selectedMenuEncode != 2);
@@ -68,8 +79,10 @@ int main() {
                         case 1:
                             system("cls");
                             printf("input nama file: ");
-                            char filenameDecode[255];
-                            scanf("%s", filenameDecode);
+                            char filenameEncode[255];
+                            fgets(filenameEncode, sizeof(filenameEncode), stdin);
+                            // filenameDecode[strcspn(filenameDecode, "\n")] = 0; // Menghapus newline di akhir
+                            // appendTxtExtension(filenameDecode); // Tambahkan ekstensi .txt jika belum ada
                             // decodeFromFileMorse(morseTree, filenameDecode);
                             spaceToContinue();
                             break;
