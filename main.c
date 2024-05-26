@@ -80,7 +80,6 @@ int main() {
                                     selectedMenuWriteToFile = selectMenuWriteToFile();
                                     switch(selectedMenuWriteToFile) {
                                         case 0:
-                                        	inputMessage(message);
                                             break;
                                         case 1:
                                         	handleFileSaving(morseResult);

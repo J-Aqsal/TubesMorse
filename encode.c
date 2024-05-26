@@ -58,14 +58,6 @@ void inputMessage(char *message) {
     message[strcspn(message, "\n")] = 0; // Hapus newline
 }
 
-// Fungsi untuk menyimpan hasil Morse ke file
-void saveMorseResult(address morseTree, const char *message) {
-    char* morseResult = translateToMorse(morseTree, message);
-
-    handleFileSaving(morseResult);
-    free(morseResult);
-}
-
 // Fungsi untuk memeriksa apakah file sudah ada di folder
 int fileExists(const char* filename) {
     FILE* file;
@@ -95,6 +87,12 @@ void handleFileSaving(const char* morseResult) {
     char filename[100];
     char choice;
 
+    // Cek apakah hasil Morse mengandung karakter '?'
+    if (strstr(morseResult, "?") != NULL) {
+        printf("Hasil Morse mengandung karakter yang tidak dikenali. Tidak bisa menyimpan file.\n");
+        return;
+    }
+
     printf("Masukkan nama file untuk menyimpan hasil Morse: ");
     fgets(filename, sizeof(filename), stdin);
     filename[strcspn(filename, "\n")] = 0; // Menghapus karakter newline
@@ -113,7 +111,6 @@ void handleFileSaving(const char* morseResult) {
 
         if (choice == 'n' || choice == 'N') {
             printf("Masukkan nama file baru: ");
-            getchar(); // Membaca karakter newline yang tersisa dari input sebelumnya
             fgets(filename, sizeof(filename), stdin);
             filename[strcspn(filename, "\n")] = 0; // Menghapus karakter newline
 
@@ -141,3 +138,4 @@ void handleFileSaving(const char* morseResult) {
     // Jika file tidak ada atau pengguna memilih file baru
     saveMorseResultToFile(filename, morseResult);
 }
+
