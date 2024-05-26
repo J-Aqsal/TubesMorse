@@ -81,9 +81,9 @@ int main() {
                             printf("input nama file: ");
                             char filenameEncode[255];
                             fgets(filenameEncode, sizeof(filenameEncode), stdin);
-                            // filenameDecode[strcspn(filenameDecode, "\n")] = 0; // Menghapus newline di akhir
-                            // appendTxtExtension(filenameDecode); // Tambahkan ekstensi .txt jika belum ada
-                            // decodeFromFileMorse(morseTree, filenameDecode);
+                            filenameEncode[strcspn(filenameEncode, "\n")] = 0; // Menghapus newline di akhir
+                            appendTxtExtension(filenameEncode); // Tambahkan ekstensi .txt jika belum ada
+                            encodeFromFileMorse(morseTree, filenameEncode);
                             spaceToContinue();
                             break;
                     }

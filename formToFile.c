@@ -49,3 +49,30 @@ void decodeFromFileMorse(address morseTree, const char* filename) {
     
     fclose(file);
 }
+
+// Fungsi untuk membaca teks dari file dan mengencode ke Morse
+void encodeFromFileMorse(address morseTree, const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        fprintf(stderr, "FILE %s Tidak Ditemukan\n", filename);
+        return;
+    }
+    
+    char line[255];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        // Menghapus karakter newline jika ada
+        size_t len = strlen(line);
+        if (len > 0 && line[len - 1] == '\n') {
+            line[len - 1] = '\0';
+        }
+
+        printf("Membaca baris: %s\n", line);
+
+        // Encode baris teks ke Morse
+        char* morseCode = translateToMorse(morseTree, line);
+        printf("Encode: %s\n", morseCode);
+        free(morseCode);
+    }
+    
+    fclose(file);
+}
