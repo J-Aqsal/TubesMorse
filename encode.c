@@ -96,17 +96,31 @@ void handleFileSaving(const char* morseResult) {
     char choice;
 
     printf("Masukkan nama file untuk menyimpan hasil Morse: ");
-    scanf("%s", filename);
+    getchar(); // Membaca karakter newline yang tersisa dari input sebelumnya
+    fgets(filename, sizeof(filename), stdin);
+    filename[strcspn(filename, "\n")] = 0; // Menghapus karakter newline
+
+    // Tambahkan ekstensi .txt jika tidak ada
+    if (strstr(filename, ".txt") == NULL) {
+        strcat(filename, ".txt");
+    }
 
     // Jika file sudah ada, tanyakan apakah ingin menyimpan ke file yang sama atau file baru
     if (fileExists(filename)) {
         printf("File dengan nama '%s' sudah ada di dalam folder.\n", filename);
         printf("Apakah Anda ingin menyimpan ke file yang sama? (y) atau file baru? (n): ");
         scanf(" %c", &choice);
+        getchar(); // Membersihkan karakter newline setelah scanf
 
         if (choice == 'n' || choice == 'N') {
             printf("Masukkan nama file baru: ");
-            scanf("%s", filename);
+            fgets(filename, sizeof(filename), stdin);
+            filename[strcspn(filename, "\n")] = 0; // Menghapus karakter newline
+
+            // Tambahkan ekstensi .txt jika tidak ada
+            if (strstr(filename, ".txt") == NULL) {
+                strcat(filename, ".txt");
+            }
         } else {
             // Jika pengguna memilih untuk menyimpan ke file yang sama, buka dalam mode append
             FILE* file = fopen(filename, "a");
