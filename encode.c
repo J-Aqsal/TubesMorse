@@ -96,7 +96,6 @@ void handleFileSaving(const char* morseResult) {
     char choice;
 
     printf("Masukkan nama file untuk menyimpan hasil Morse: ");
-    getchar(); // Membaca karakter newline yang tersisa dari input sebelumnya
     fgets(filename, sizeof(filename), stdin);
     filename[strcspn(filename, "\n")] = 0; // Menghapus karakter newline
 
@@ -114,6 +113,7 @@ void handleFileSaving(const char* morseResult) {
 
         if (choice == 'n' || choice == 'N') {
             printf("Masukkan nama file baru: ");
+            getchar(); // Membaca karakter newline yang tersisa dari input sebelumnya
             fgets(filename, sizeof(filename), stdin);
             filename[strcspn(filename, "\n")] = 0; // Menghapus karakter newline
 
