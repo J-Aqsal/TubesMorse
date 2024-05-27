@@ -3,6 +3,10 @@
 #include <string.h>
 #include <stdbool.h>
 
+extern int top, left;
+char dot = 'z';
+char dash = 'x';
+char space = '/';
 // Address pointer ke node
 typedef struct TreeNode* address;
 
@@ -142,14 +146,40 @@ char* readMorseInput(){
     int j = 0;
     char ch;
     showCursor();
-	printf("Masukkan pesan Morse (gunakan z untuk titik dan x untuk strip, spasi antara karakter, garis miring untuk kata baru):\n");
-	printf("                                                 \n                                                 \n                                                \n                                                \n                                                \n                                                \n                                                \n                                                \n\033[A\033[A\033[A\033[A\033[A\033[A\033[A\033[A");
-    // Membaca input karakter demi karakter menggunakan getch
+    
+    moveToLine(top, left);
+	printf("Use %c for dot and use %c for dash", dot, dash);
+	
+    moveToLine(top+1, left);
+	printf("                                                 ");
+    moveToLine(top+2, left);
+	printf("                                                 ");
+    moveToLine(top+3, left);
+	printf("                                                 ");
+    moveToLine(top+4, left);
+	printf("                                                 ");
+    moveToLine(top+5, left);
+	printf("                                                 ");
+    moveToLine(top+6, left);
+	printf("                                                 ");
+    moveToLine(top+7, left);
+	printf("                                                 ");
+    moveToLine(top+8, left);
+	printf("                                                 ");
+    moveToLine(top+9, left);
+	printf("                                                 ");
+    moveToLine(top+9, left);
+	printf("                                                 ");
+    moveToLine(top+10, left);
+	printf("                                                 ");
+    moveToLine(top+2, left);;printf("Morse code: ");
+	
+	// Membaca input karakter demi karakter menggunakan getch
     while ((ch = getch()) != '\r') {
-        if (ch == 'z') {
+        if (ch == dot) {
             morseInput[j++] = '.';
             printf(".");
-        } else if (ch == 'x') {
+        } else if (ch == dash) {
             morseInput[j++] = '-';
             printf("-");
         } else if (ch == ' ') {
