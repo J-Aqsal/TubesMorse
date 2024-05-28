@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-//#include "main.h"
 extern int top, left;
 char dot = 'z';
 char dash = 'x';
 char space = '/';
+
 // Address pointer ke node
 typedef struct TreeNode* address;
 
@@ -203,7 +203,4 @@ char* readMorseInput(){
     return morseInput;
 }
 
-void settingsDotDash(){
-	
-}
 

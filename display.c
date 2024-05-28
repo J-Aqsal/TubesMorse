@@ -123,33 +123,34 @@ void displayMenuWriteToFile(int selected) {
 
 void displayMenuAfterWriteToFile(int selected) {
 	moveToLine(top+8, left);
-    printf("%s Input again", (selected == 0) ? "[>]" : "[ ]");
+    printf("%s Input again                                     ", (selected == 0) ? "[>]" : "[ ]");
     
+    moveToLine(top+9, left);
+    printf("%s Morse Beep\n", (selected == 1) ? "[>]" : "[ ]");
     
-	moveToLine(top+9, left);
-    printf("%s Back to menu\n", (selected == 1) ? "[>]" : "[ ]");
+	moveToLine(top+10, left);
+    printf("%s Back to menu\n", (selected == 2) ? "[>]" : "[ ]");
 }
 
 int selectMenuAfterWriteToFile(){
     int ch;
 	int selected = 0;
 
+    displayMenuAfterWriteToFile(selected);
     while (1) {
-        displayMenuAfterWriteToFile(selected);
         ch = getch();
-        if (ch == 72) { // bawah
-            selected = (selected == 0) ? 1 : 0;
-        } else if (ch == 80) { // atas
-            selected= (selected == 1) ? 0 : 1;
-        }else if (ch == 13) { // Enter
+        if (ch == 72) { // atas
+            selected = (selected == 0) ? 3 : --selected;
+        } else if (ch == 80) { // bawah
+            selected = (selected == 3) ? 0 : ++selected;
+        } else if (ch == 13 || ch == 77) { // Enter
             break;
-        }else if (ch == 77) { // Kanan
-            break;
-        }else if (ch == 75) { // Kiri
-        	selected = 2;
+        } else if (ch == 75) { // Kiri
+            selected = 4;
             break;
         }
-    }
+    displayMenuAfterWriteToFile(selected);
+	}
     return selected;
 	
 }
@@ -249,6 +250,7 @@ int selectedDecode = 0;
     return selectedDecode;
 	
 }
+
 void clearDisplay(int headerTop){
 	int i;
 	moveToLine(13, left);

@@ -43,7 +43,7 @@ void decodeFromFileMorse(address morseTree, const char* filename) {
         }
         
         // Debugging output
-        moveToLine(top+3, left);
+        moveToLine(top+15,0);
         printf("Membaca baris: %s", morseLine);
 
         // Mendekode baris kode Morse
@@ -73,11 +73,11 @@ void encodeFromFileMorse(address morseTree, const char* filename) {
             line[len - 1] = '\0';
         }
 
-        moveToLine(top+3, left);
+        moveToLine(top+15, 0);
         printf("Membaca baris: %s\n", line);
 
         // Encode baris teks ke Morse
-        moveToLine(top+5, left);
+        moveToLine(top+20, 0);
         char* morseCode = translateToMorse(morseTree, line);
         printf("Encode: %s\n", morseCode);
         free(morseCode);

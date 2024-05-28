@@ -45,26 +45,48 @@ int main() {
 								printf("Text: %s", hasil);
 							    
     
-							    selectedMenuWriteToFile = selectMenuWriteToFile();
+							    do{
+									selectedMenuWriteToFile = selectMenuWriteToFile();
 							    
-                                switch(selectedMenuWriteToFile) {
-                                    case 0:
-                                        break;
-                                    case 1:
-										clearDisplay(top+8);
-                                        handleFileSaving(hasil);
-										moveToLine(top+15, left);
-                                        spaceToContinue();
-                                        hideCursor();
-										clearDisplay(top+8);
-                                        selectedMenuAfterWriteToFile = selectMenuAfterWriteToFile();
-                                        break;
-                                    case 2:
-                                    	beepMorse(inputan);
-                                    	break;
-                                        
-                                }
-							}while(selectedMenuAfterWriteToFile != 1 && selectedMenuWriteToFile != 3 );
+	                                switch(selectedMenuWriteToFile) {
+	                                	hideCursor();
+	                                    case 0:
+	                                        break;
+	                                    case 1:
+											clearDisplay(top+8);
+	                                        handleFileSaving(inputan);
+											moveToLine(top+14, left);
+	                                        spaceToContinue();
+	                                        hideCursor();
+											clearDisplay(top+8);
+											do{
+	                                        	selectedMenuAfterWriteToFile = selectMenuAfterWriteToFile();
+												if(selectedMenuAfterWriteToFile == 1){
+													
+													clearDisplay(top+8);
+													moveToLine(top+8, left);
+													printf("Playing...");
+			                                    	
+			                                    	beepMorse(inputan);
+													moveToLine(top+8, left);
+													spaceToContinue();
+												}
+											}while(selectedMenuAfterWriteToFile == 1);
+	                                        break;
+	                                    case 2:
+											clearDisplay(top+8);
+											moveToLine(top+8, left);
+											printf("Playing...");
+	                                    	
+	                                    	beepMorse(inputan);
+											moveToLine(top+8, left);
+											spaceToContinue();
+	                                    	break;
+	                                        
+	                                }
+								}while(selectedMenuAfterWriteToFile != 2 && selectedMenuWriteToFile == 2);
+                                
+							}while(selectedMenuAfterWriteToFile != 2 && selectedMenuWriteToFile != 3 );
 							clearDisplay(25);
 							break;
 							
@@ -79,9 +101,10 @@ int main() {
                             filenameDecode[strcspn(filenameDecode, "\n")] = 0; // Menghapus newline di akhir
                             appendTxtExtension(filenameDecode); // Tambahkan ekstensi .txt jika belum ada
                             decodeFromFileMorse(morseTree, filenameDecode);
-							moveToLine(top+10, left);
+							moveToLine(top+27, 0);
 						    spaceToContinue();
-	    					clearDisplay(25);
+	    					system("cls");
+	    					header();
                             break;
 					}	
 //	    			break;
@@ -106,27 +129,49 @@ int main() {
 								moveToLine(top+4, left);
 								
                                 printf("Morse code: %s\n", morseResult);
-
-                                selectedMenuWriteToFile = selectMenuWriteToFile();
+								
+								do{
+									selectedMenuWriteToFile = selectMenuWriteToFile();
 							    
-                                switch(selectedMenuWriteToFile) {
-                                    case 0:
-                                        break;
-                                    case 1:
-										clearDisplay(top+8);
-                                        handleFileSaving(morseResult);
-										moveToLine(top+10, left);
-                                        spaceToContinue();
-                                        hideCursor();
-										clearDisplay(top+8);
-                                        selectedMenuAfterWriteToFile = selectMenuAfterWriteToFile();
-                                        break;
-                                    case 2:
-                                    	beepMorse(morseResult);
-                                    	break;
-                                        
-                                }
-							}while(selectedMenuAfterWriteToFile != 1 && selectedMenuWriteToFile != 3 );
+	                                switch(selectedMenuWriteToFile) {
+	                                	hideCursor();
+	                                    case 0:
+	                                        break;
+	                                    case 1:
+											clearDisplay(top+8);
+	                                        handleFileSaving(morseResult);
+											moveToLine(top+14, left);
+	                                        spaceToContinue();
+	                                        hideCursor();
+											clearDisplay(top+8);
+											do{
+	                                        	selectedMenuAfterWriteToFile = selectMenuAfterWriteToFile();
+												if(selectedMenuAfterWriteToFile == 1){
+													
+													clearDisplay(top+8);
+													moveToLine(top+8, left);
+													printf("Playing...");
+			                                    	
+			                                    	beepMorse(morseResult);
+													moveToLine(top+8, left);
+													spaceToContinue();
+												}
+											}while(selectedMenuAfterWriteToFile == 1);
+	                                        break;
+	                                    case 2:
+											clearDisplay(top+8);
+											moveToLine(top+8, left);
+											printf("Playing...");
+	                                    	
+	                                    	beepMorse(morseResult);
+											moveToLine(top+8, left);
+											spaceToContinue();
+	                                    	break;
+	                                        
+	                                }
+								}while(selectedMenuAfterWriteToFile != 2 && selectedMenuWriteToFile == 2);
+                                
+							}while(selectedMenuAfterWriteToFile != 2 && selectedMenuWriteToFile != 3 );
 							clearDisplay(25);
 							break;
                             
@@ -141,9 +186,10 @@ int main() {
                             filenameEncode[strcspn(filenameEncode, "\n")] = 0; // Menghapus newline di akhir
                             appendTxtExtension(filenameEncode); // Tambahkan ekstensi .txt jika belum ada
                             encodeFromFileMorse(morseTree, filenameEncode);
-							moveToLine(top+10, left);
+							moveToLine(top+27, 0);
 						    spaceToContinue();
-	    					clearDisplay(25);
+	    					system("cls");
+	    					header();
                             break;
                     }
                 } while(selectedMenuDecode != 2);
