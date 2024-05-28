@@ -12,9 +12,15 @@ int fileExists(const char* filename);
 void saveMorseResultToFile(const char* filename, const char* morseResult);
 void handleFileSaving(const char* morseResult);
 // Prototipe fungsi untuk input pesan
-void inputMessage(char *message);
+char* inputMessage();
 
 // Prototipe fungsi untuk menyimpan hasil Morse ke file
 void saveMorseResult(address morseTree, const char *message);
 
+
+void beepMorse(const char *morse);
+
+
+// Fungsi untuk membuat folder jika belum ada
+void createDirectoryIfNotExists(const char* dirName);
 #endif // ENCODE_H

@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/LENOVO/Documents/POLBAN/SEMESTER 2/SDA/New folder/TubesMorse",
-      "program": "c:/Users/LENOVO/Documents/POLBAN/SEMESTER 2/SDA/New folder/TubesMorse/build/Debug/outDebug",
+      "cwd": "c:/Users/LENOVO/Documents/POLBAN/SEMESTER 2/SDA/TuBEs/TubesMorse",
+      "program": "c:/Users/LENOVO/Documents/POLBAN/SEMESTER 2/SDA/TuBEs/TubesMorse/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
