@@ -17,5 +17,7 @@ void inputMessage(char *message);
 // Prototipe fungsi untuk menyimpan hasil Morse ke file
 void saveMorseResult(address morseTree, const char *message);
 
+void createDirectoryIfNotExists(const char* dirName);
+
 #endif // ENCODE_H
 
