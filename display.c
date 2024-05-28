@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <windows.h>
-
+#include "decode.h"
 int spaceTop = 10;
 int spaceLeft = 20;
 
 int top = 10 + 15;
 int left = 20 + 80;
+
 void setFullScreen() {
     // Menyiapkan struktur INPUT untuk mensimulasikan penekanan tombol
     INPUT input = {0};
@@ -80,6 +82,8 @@ void displayMenuUtama(int selectedUtama) {
     printf("%s Morse to Character", (selectedUtama == 0) ? "[>]" : "[ ]");
 	moveToLine(top+2, left);
     printf("%s Character to Morse                      ", (selectedUtama == 1) ? "[>]" : "[ ]");
+	moveToLine(top+3, left);
+    printf("%s Display Tree                      ", (selectedUtama == 2) ? "[>]" : "[ ]");
     hideCursor();
 }
 
@@ -110,8 +114,11 @@ void displayMenuWriteToFile(int selected) {
 	moveToLine(top+9, left);
     printf("%s Write result into file\n", (selected == 1) ? "[>]" : "[ ]");
     
-	moveToLine(top+10, left);
-    printf("%s Back to menu\n", (selected == 2) ? "[>]" : "[ ]");
+    moveToLine(top+10, left);
+    printf("%s Morse Beep\n", (selected == 2) ? "[>]" : "[ ]");
+    
+	moveToLine(top+11, left);
+    printf("%s Back to menu\n", (selected == 3) ? "[>]" : "[ ]");
 }
 
 void displayMenuAfterWriteToFile(int selected) {
@@ -157,13 +164,13 @@ int selectMenuWriteToFile() {
     while (1) {
         ch = getch();
         if (ch == 72) { // atas
-            selected = (selected == 0) ? 2 : --selected;
+            selected = (selected == 0) ? 3 : --selected;
         } else if (ch == 80) { // bawah
-            selected = (selected == 2) ? 0 : ++selected;
+            selected = (selected == 3) ? 0 : ++selected;
         } else if (ch == 13 || ch == 77) { // Enter
             break;
         } else if (ch == 75) { // Kiri
-            selected = 3;
+            selected = 4;
             break;
         }
         // Perbarui tampilan menu dengan pilihan yang diperbarui
@@ -179,15 +186,15 @@ int selectMenuUtama(){
         displayMenuUtama(selectedUtama);
         ch = getch();
         if (ch == 72) { // bawah
-            selectedUtama = (selectedUtama == 0) ? 1 : 0;
+            selectedUtama = (selectedUtama == 0) ? 2 : --selectedUtama;
         } else if (ch == 80) { // atas
-            selectedUtama = (selectedUtama == 1) ? 0 : 1;
+            selectedUtama = (selectedUtama == 2) ? 0 : ++selectedUtama;
         }else if (ch == 13) { // Enter
             break;
         } else if (ch == 77) { // Kanan
             break;
         }else if (ch == 75) { // Kiri
-        	selectedUtama = 2;
+        	selectedUtama = 3;
             break;
         }
         
@@ -255,6 +262,61 @@ void clearDisplay(int headerTop){
 void spaceToContinue(){
 	printf("Tekan spasi untuk melanjutkan");
     while(getch() != ' '); // menunggu user menekan spasi untuk melanjutkan
-//    clearDisplay(13);
 }
 
+void displayTree(address root, int depth, bool *path, bool isRight) {
+    const int spaces = 8;
+    int i,j;
+
+    if (root == NULL)
+        return;
+
+    depth++;
+
+    displayTree(root->right, depth, path, true);
+	
+    if (depth - 2 >= 0){
+		path[depth - 2] = false;
+	}
+
+
+    if(isRight){
+        path[depth - 2] = true;
+	}
+
+    if(root->left){
+        path[depth - 1] = true;
+	}
+
+
+    printf("\n");
+
+    for (i = 0; i < depth - 1; i++) {
+        if (i == depth - 2)
+            printf("%c", isRight ? 218 : 192);
+        else if (path[i])
+            printf("%c", 179);
+        else
+            printf(" ");
+
+        for (j = 1; j < spaces; j++)
+            if (i < depth - 2)
+                printf(" ");
+            else
+                printf("%c", 196);
+    }
+
+    printf(" %c\n", root->data);
+
+    for (i = 0; i < depth; i++) {
+        if (path[i])
+            printf("%c", 179);
+        else
+            printf(" ");
+
+        for (j = 1; j < spaces; j++)
+            printf(" ");
+    }
+
+    displayTree(root->left, depth, path, false);
+}

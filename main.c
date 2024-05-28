@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
+#include <stdbool.h>
 #include "encode.h"
 #include "decode.h"
 #include "fromToFile.h"
@@ -12,13 +13,14 @@ int main() {
     hideCursor();
     extern top, left;
 	char cipher;
-    char message[1000];
+	char* message;
     int selectedMenuUtama, selectedMenuEncode, selectedMenuDecode, selectedMenuWriteToFile, selectedMenuAfterWriteToFile;
     address morseTree = buildMorseTree();
     header();
     
 	moveToLine(top+10, left);
     spaceToContinue();
+    system("cls");
 	header();
 	clearDisplay(top);
     do{
@@ -27,6 +29,7 @@ int main() {
 	    	clearDisplay(13);
     		case 0:
     			do{
+    				clearDisplay(25);
 	    			selectedMenuEncode = selectMenuEncode();
 	    			switch(selectedMenuEncode){
 	    				case 0:
@@ -50,15 +53,18 @@ int main() {
                                     case 1:
 										clearDisplay(top+8);
                                         handleFileSaving(hasil);
-										moveToLine(top+10, left);
+										moveToLine(top+15, left);
                                         spaceToContinue();
                                         hideCursor();
 										clearDisplay(top+8);
                                         selectedMenuAfterWriteToFile = selectMenuAfterWriteToFile();
                                         break;
+                                    case 2:
+                                    	beepMorse(inputan);
+                                    	break;
                                         
                                 }
-							}while(selectedMenuAfterWriteToFile != 1 && selectedMenuWriteToFile != 2 );
+							}while(selectedMenuAfterWriteToFile != 1 && selectedMenuWriteToFile != 3 );
 							clearDisplay(25);
 							break;
 							
@@ -78,18 +84,20 @@ int main() {
 	    					clearDisplay(25);
                             break;
 					}	
-	    			break;
+//	    			break;
 				}while(selectedMenuEncode != 2);
 				break;
 			case 1:
                 do {
+    				clearDisplay(25);
                     selectedMenuDecode = selectMenuDecode();
                     switch(selectedMenuDecode) {
                         case 0:
                             do {
     							showCursor();
+    							message = inputMessage();
     							
-                                inputMessage(message); // Panggil fungsi untuk input pesan
+//                                inputMessage(message); // Panggil fungsi untuk input pesan
                                 
                                 hideCursor();
                                 
@@ -113,9 +121,12 @@ int main() {
 										clearDisplay(top+8);
                                         selectedMenuAfterWriteToFile = selectMenuAfterWriteToFile();
                                         break;
+                                    case 2:
+                                    	beepMorse(morseResult);
+                                    	break;
                                         
                                 }
-							}while(selectedMenuAfterWriteToFile != 1 && selectedMenuWriteToFile != 2 );
+							}while(selectedMenuAfterWriteToFile != 1 && selectedMenuWriteToFile != 3 );
 							clearDisplay(25);
 							break;
                             
@@ -137,8 +148,25 @@ int main() {
                     }
                 } while(selectedMenuDecode != 2);
                 break;
+            case 2:{
+            	system("cls");
+            	
+			    bool *path = (bool *)calloc(10000, sizeof(bool));
+			
+			    if (!path) {
+			        printf("Memory allocation failed\n");
+			        return 1;
+			    }
+			
+			    displayTree(morseTree, 0, path, false);
+			    
+			    spaceToContinue();
+			    system("cls");
+			    header();
+				break;
+			}
         }
-    } while(selectedMenuUtama != 2);
+    } while(selectedMenuUtama != 3);
 	
 	moveToLine(38, 0);
 //	printf("ty");

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
+//#include "main.h"
 extern int top, left;
 char dot = 'z';
 char dash = 'x';
@@ -201,5 +201,9 @@ char* readMorseInput(){
 
     morseInput[j] = '\0';  // Menambahkan karakter null di akhir string
     return morseInput;
+}
+
+void settingsDotDash(){
+	
 }
 

@@ -39,12 +39,18 @@ int selectMenuWriteToFile();
 
 void header();
 
+
 void hideCursor();
+
 
 void showCursor();
 
 
 void setFullScreen();
 
+
 void clearDisplay(int headerTop);
+
+
+void displayTree(address root, int depth, bool *path, bool isRight);
 #endif
