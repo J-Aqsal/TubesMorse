@@ -37,8 +37,8 @@ int main() {
     		case 0:
     			do{
     				clearDisplay(25);
-	    			selectedMenuEncode = selectMenuEncode();
-	    			switch(selectedMenuEncode){
+	    			selectedMenuDecode = selectMenuDecode();
+	    			switch(selectedMenuDecode){
 	    				case 0:
 	    					do{
 							    char* inputan = readMorseInput();
@@ -123,13 +123,13 @@ int main() {
                             break;
 					}	
 //	    			break;
-				}while(selectedMenuEncode != 2);
+				}while(selectedMenuDecode != 2);
 				break;
 			case 1:
                 do {
     				clearDisplay(25);
-                    selectedMenuDecode = selectMenuDecode();
-                    switch(selectedMenuDecode) {
+                    selectedMenuEncode = selectMenuEncode();
+                    switch(selectedMenuEncode) {
                         case 0:
                             do {
     							showCursor();
@@ -205,7 +205,7 @@ int main() {
 	    					header();
                             break;
                     }
-                } while(selectedMenuDecode != 2);
+                } while(selectedMenuEncode != 2);
                 break;
             case 2:{
             	system("cls");

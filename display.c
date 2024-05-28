@@ -90,21 +90,21 @@ void displayMenuUtama(int selectedUtama) {
 // Tampilan menu encode
 void displayMenuEncode(int selectedEncode) { // morse to char
 	moveToLine(top, left);
-    printf("=== DECODE ===");
+    printf("=== ENCODE ===");
 	moveToLine(top+1, left);
-    printf("%s Input morse                                             ", (selectedEncode == 0) ? "[>]" : "[ ]");
+    printf("%s Input character                                             ", (selectedEncode == 0) ? "[>]" : "[ ]");
 	moveToLine(top+2, left);
-    printf("%s Input file contain morse                                             \n", (selectedEncode == 1) ? "[>]" : "[ ]");
+    printf("%s Input file contain character                                             \n", (selectedEncode == 1) ? "[>]" : "[ ]");
 }
 
 // Tampilan menu decode
 void displayMenuDecode(int selectedDecode) {
 	moveToLine(top, left);
-    printf("=== ENCODE ===");
+    printf("=== DECODE ===");
 	moveToLine(top+1, left);
-    printf("%s Input character                                             ", (selectedDecode == 0) ? "[>]" : "[ ]");
+    printf("%s Input morse                                             ", (selectedDecode == 0) ? "[>]" : "[ ]");
 	moveToLine(top+2, left);
-    printf("%s Input file contain character                                             \n", (selectedDecode == 1) ? "[>]" : "[ ]");
+    printf("%s Input file contain morse                                             \n", (selectedDecode == 1) ? "[>]" : "[ ]");
 }
 
 void displayMenuWriteToFile(int selected) {
