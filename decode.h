@@ -25,4 +25,6 @@ char* decodeMorse(address Tree, char* morse);
 
 // user input morse
 char* readMorseInput();
+
+void settingsDotDash();
 #endif
