@@ -18,6 +18,13 @@ int main() {
     address morseTree = buildMorseTree();
     header();
     
+    moveToLine(top, left);printf("\033[38;2;200;100;255mWelcome to DotDashApp");
+    moveToLine(top+2, left);printf("here's a brief tutorial:");
+    moveToLine(top+3, left);printf("1. use up and down arrow to select the menu options");
+    moveToLine(top+4, left);printf("2. use enter or right arrow to confirm your selection");
+    moveToLine(top+5, left);printf("3. use left arrow to go to previous menu");
+    moveToLine(top+7, left);printf("Enjoyy!!");
+    
 	moveToLine(top+10, left);
     spaceToContinue();
     system("cls");
@@ -35,15 +42,17 @@ int main() {
 	    				case 0:
 	    					do{
 							    char* inputan = readMorseInput();
-							    
-							    char* morseInput;
-							    
-							    morseInput = inputan;
+	    						char* morseInput = malloc(strlen(inputan) + 1);
+							    if (morseInput == NULL) {
+							        perror("malloc failed");
+							        free(inputan);
+							        exit(EXIT_FAILURE);
+							    }
+							    strcpy(morseInput, inputan);
 							    
 							    
 								char* hasil = decodeMorse(morseTree, inputan);
-								
-							    printf("\n%s", morseInput);
+							    
 								hideCursor();
 								
 								moveToLine(top+4, left);

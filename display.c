@@ -109,7 +109,7 @@ void displayMenuDecode(int selectedDecode) {
 
 void displayMenuWriteToFile(int selected) {
 	moveToLine(top+8, left);
-    printf("%s Input again", (selected == 0) ? "[>]" : "[ ]");
+    printf("%s Input again                                     ", (selected == 0) ? "[>]" : "[ ]");
     
 	moveToLine(top+9, left);
     printf("%s Write result into file\n", (selected == 1) ? "[>]" : "[ ]");
@@ -262,7 +262,7 @@ void clearDisplay(int headerTop){
 
 // Menunggu user menekan spasi untuk melanjutkan
 void spaceToContinue(){
-	printf("Tekan spasi untuk melanjutkan");
+	printf("\033[38;2;200;100;255mPress space to continue\033[0m");
     while(getch() != ' '); // menunggu user menekan spasi untuk melanjutkan
 }
 

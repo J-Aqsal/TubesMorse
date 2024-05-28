@@ -114,7 +114,6 @@ void createDirectoryIfNotExists(const char* dirName) {
         mkdir(dirName);
     }
 }
-
 // Fungsi untuk menangani penyimpanan file
 void handleFileSaving(const char* morseResult) {
     char filename[100];
@@ -122,7 +121,6 @@ void handleFileSaving(const char* morseResult) {
     char filePath[150];
     char newFilePath[150];
     char choice;
-
 
     const char* folderName = "files_input";
     createDirectoryIfNotExists(folderName);
@@ -132,8 +130,8 @@ void handleFileSaving(const char* morseResult) {
         printf("Hasil Morse mengandung karakter yang tidak dikenali. Tidak bisa menyimpan file.\n");
         return;
     }
-	moveToLine(top+8, left);
-	showCursor();
+    moveToLine(top+8, left);
+    showCursor();
     printf("File name: ");
     fgets(filename, sizeof(filename), stdin);
     hideCursor();
@@ -148,17 +146,26 @@ void handleFileSaving(const char* morseResult) {
 
     // Jika file sudah ada, tanyakan apakah ingin menyimpan ke file yang sama atau file baru
     if (fileExists(filePath)) {
-		moveToLine(top+9, left);
+        moveToLine(top+9, left);
         printf("File dengan nama '%s' sudah ada di dalam folder.", filePath);
-		moveToLine(top+10, left);
-        printf("Apakah Anda ingin menyimpan ke file yang sama? (y) atau file baru? (n): ");
-        scanf(" %c", &choice);
-        getchar(); // Membersihkan karakter newline setelah scanf
+        moveToLine(top+10, left);
+        
+        // Ulangi permintaan input sampai mendapatkan 'y' atau 'n'
+        do {
+            clearDisplay(30);
+            moveToLine(top+9, left);
+            printf("File dengan nama '%s' sudah ada di dalam folder.", filePath);
+            moveToLine(top+10, left);
+            printf("Apakah Anda ingin menyimpan ke file yang sama? (y) atau file baru? (n): ");
+            choice = getchar();
+            getchar(); // Membersihkan karakter newline setelah getchar
+            choice = tolower(choice); // Ubah input menjadi huruf kecil untuk memudahkan pengecekan
+        } while (choice != 'y' && choice != 'n');
 
-        if (choice == 'n' || choice == 'N') {
+        if (choice == 'n') {
             do {
-            	clearDisplay(30);
-				moveToLine(top+8, left);
+                clearDisplay(30);
+                moveToLine(top+8, left);
                 printf("Masukkan nama file baru: ");
                 fgets(newFilename, sizeof(newFilename), stdin);
                 newFilename[strcspn(newFilename, "\n")] = 0; // Menghapus karakter newline
@@ -172,13 +179,12 @@ void handleFileSaving(const char* morseResult) {
 
                 // Cek apakah nama file baru sama dengan nama file lama
                 if (strcmp(newFilePath, filePath) == 0) {
-					moveToLine(top+10, left);
+                    moveToLine(top+10, left);
                     printf("Nama file baru tidak boleh sama dengan nama file sebelumnya. Silakan masukkan nama file yang berbeda.\n");
                     moveToLine(top+15, left);
                     spaceToContinue();
-					moveToLine(top+10, left);
+                    moveToLine(top+10, left);
                     printf("                                                                                                         ");
-                    
                 }
             } while (strcmp(newFilePath, filePath) == 0);
 
@@ -194,8 +200,8 @@ void handleFileSaving(const char* morseResult) {
             // Tambahkan satu baris kosong sebelum menulis hasil Morse baru
             fprintf(file, "\n%s", morseResult);
             fclose(file);
-			
-			moveToLine(top+11, left);
+
+            moveToLine(top+11, left);
             printf("Hasil Morse telah disimpan dalam file %s\n", filePath);
             return;
         }

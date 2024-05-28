@@ -86,6 +86,7 @@ address buildMorseTree() {
     
     // Simbol
     root->right->left->left->left->right = createNode('=');
+    root->right->left->left->left->left->right = createNode('-');
     root->left->left->right->right->left->left = createNode('?');
     root->left->right->left->left->right->left = createNode('"');
     root->left->right->left->right->left->right = createNode('.');
@@ -148,7 +149,7 @@ char* readMorseInput(){
     showCursor();
     
     moveToLine(top, left);
-	printf("Use %c for dot and use %c for dash", dot, dash);
+	printf("Use %c for dot, use %c for dash, use space to next character and use / for next word", dot, dash);
 	
     moveToLine(top+1, left);
 	printf("                                                 ");
@@ -171,6 +172,10 @@ char* readMorseInput(){
     moveToLine(top+9, left);
 	printf("                                                 ");
     moveToLine(top+10, left);
+	printf("                                                 ");
+    moveToLine(top+11, left);
+	printf("                                                 ");
+    moveToLine(top+12, left);
 	printf("                                                 ");
     moveToLine(top+2, left);;printf("Morse code: ");
 	
