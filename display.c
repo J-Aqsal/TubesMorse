@@ -74,6 +74,37 @@ void header(){
     fclose(file);
 }
 
+
+void displayMenuFormToFile(int selected) {
+    moveToLine(top + 8, left);
+    printf("%s Input again", (selected == 0) ? "[>]" : "[ ]");
+    moveToLine(top + 9, left);
+    printf("%s Back to menu\n", (selected == 1) ? "[>]" : "[ ]");
+}
+
+
+int selectMenuWriteToFile() {
+    int ch;
+    int selected = 0;
+
+    displayMenuWriteToFile(selected);
+    while (1) {
+        ch = getch();
+        if (ch == 72) {
+            selected = (selected == 0) ? 3 : --selected;
+        } else if (ch == 80) {
+            selected = (selected == 3) ? 0 : ++selected;
+        } else if (ch == 13 || ch == 77) {
+            break;
+        } else if (ch == 75) {
+            selected = 4;
+            break;
+        }
+        displayMenuWriteToFile(selected);
+    }
+    return selected;
+}
+
 // Tampilan menu utama
 void displayMenuUtama(int selectedUtama) {
 	moveToLine(top, left);
@@ -154,28 +185,21 @@ int selectMenuAfterWriteToFile(){
     return selected;
 	
 }
-
-int selectMenuWriteToFile() {
+int selectMenuFormToFile() {
     int ch;
     int selected = 0;
 
-    // Tampilkan pertama kali
-    displayMenuWriteToFile(selected);
-
+    displayMenuFormToFile(selected);
     while (1) {
         ch = getch();
         if (ch == 72) { // atas
-            selected = (selected == 0) ? 3 : --selected;
+            selected = (selected == 0) ? 1 : --selected;
         } else if (ch == 80) { // bawah
-            selected = (selected == 3) ? 0 : ++selected;
+            selected = (selected == 1) ? 0 : ++selected;
         } else if (ch == 13 || ch == 77) { // Enter
             break;
-        } else if (ch == 75) { // Kiri
-            selected = 4;
-            break;
         }
-        // Perbarui tampilan menu dengan pilihan yang diperbarui
-        displayMenuWriteToFile(selected);
+        displayMenuFormToFile(selected);
     }
     return selected;
 }
@@ -321,4 +345,14 @@ void displayTree(address root, int depth, bool *path, bool isRight) {
     }
 
     displayTree(root->left, depth, path, false);
+}
+
+void opening(){
+	
+    moveToLine(top, left);printf("\033[38;2;200;100;255mWelcome to DotDashApp");
+    moveToLine(top+2, left);printf("here's a brief tutorial:");
+    moveToLine(top+3, left);printf("1. use up and down arrow to select the menu options");
+    moveToLine(top+4, left);printf("2. use enter or right arrow to confirm your selection");
+    moveToLine(top+5, left);printf("3. use left arrow to go to previous menu");
+    moveToLine(top+7, left);printf("Enjoyy!!");
 }

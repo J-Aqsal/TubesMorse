@@ -18,12 +18,7 @@ int main() {
     address morseTree = buildMorseTree();
     header();
     
-    moveToLine(top, left);printf("\033[38;2;200;100;255mWelcome to DotDashApp");
-    moveToLine(top+2, left);printf("here's a brief tutorial:");
-    moveToLine(top+3, left);printf("1. use up and down arrow to select the menu options");
-    moveToLine(top+4, left);printf("2. use enter or right arrow to confirm your selection");
-    moveToLine(top+5, left);printf("3. use left arrow to go to previous menu");
-    moveToLine(top+7, left);printf("Enjoyy!!");
+    opening();
     
 	moveToLine(top+10, left);
     spaceToContinue();
@@ -117,6 +112,7 @@ int main() {
                             appendTxtExtension(filenameDecode); // Tambahkan ekstensi .txt jika belum ada
                             decodeFromFileMorse(morseTree, filenameDecode);
 							moveToLine(top+27, 0);
+							hideCursor();
 						    spaceToContinue();
 	    					system("cls");
 	    					header();
@@ -200,6 +196,7 @@ int main() {
                             appendTxtExtension(filenameEncode); // Tambahkan ekstensi .txt jika belum ada
                             encodeFromFileMorse(morseTree, filenameEncode);
 							moveToLine(top+27, 0);
+							hideCursor();
 						    spaceToContinue();
 	    					system("cls");
 	    					header();

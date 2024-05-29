@@ -18,72 +18,120 @@ bool isValidMorse(const char* str) {
 }
 
 // Fungsi untuk membaca kode Morse dari file dan mendekodenya
-void decodeFromFileMorse(address morseTree, const char* filename) {
+void decodeFromFileMorse(address morseTree, char* filenames) {
+	char filename[100] = "files_input/";
+	strcat(filename, filenames);
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         moveToLine(top+2, left);
         fprintf(stderr, "File %s Tidak Ditemukan\n", filename);
-        return;
-    }
-    
-    char morseLine[255];
-    while (fgets(morseLine, sizeof(morseLine), file) != NULL) {
-        // Menghapus karakter newline jika ada
-        size_t len = strlen(morseLine);
-        if (len > 0 && morseLine[len - 1] == '\n') {
-            morseLine[len - 1] = '\0';
-        }
-        
-        // Periksa apakah baris hanya berisi karakter Morse yang valid
-        if (!isValidMorse(morseLine)) {
-        	moveToLine(top+2, left);
-            printf("file bukan morse\n");
-            fclose(file);
+        showCursor();
+        int selection = selectMenuFormToFile();
+        if (selection == 1) {
             return;
         }
-        
-        // Debugging output
-        moveToLine(top+15,0);
-        printf("Membaca baris: %s", morseLine);
+        else if (selection == 0) {
+            clearDisplay(25);
+            moveToLine(top+2, left);
+            printf("Input file name: ");
+            char newFilename[255];
+            showCursor();
+            fgets(newFilename, sizeof(newFilename), stdin);
+            hideCursor();
+            newFilename[strcspn(newFilename, "\n")] = 0;
+            appendTxtExtension(newFilename);
+            decodeFromFileMorse(morseTree, newFilename);
+        }
+    } else {
+        char morseLine[255];
+        int lineCount = 0;
+        while (fgets(morseLine, sizeof(morseLine), file) != NULL) {
+            size_t len = strlen(morseLine);
+            if (len > 0 && morseLine[len - 1] == '\n') {
+                morseLine[len - 1] = '\0';
+            }
 
-        // Mendekode baris kode Morse
-        char* plainText = decodeMorse(morseTree, morseLine);
-        moveToLine(top+5, left);
-        printf("Decoded: %s\n", plainText);
-        free(plainText);
+            if (!isValidMorse(morseLine)) {
+                moveToLine(top+2, left);
+                printf("File bukan morse\n");
+                fclose(file);
+                showCursor();
+                int selection = selectMenuFormToFile();
+                if (selection == 1) {
+                    return;
+                } else if (selection == 0) {
+                    clearDisplay(25);
+                    moveToLine(top+2, left);
+                    printf("Input file name: ");
+                    char newFilename[255];
+                    showCursor();
+                    fgets(newFilename, sizeof(newFilename), stdin);
+                    hideCursor();
+                    newFilename[strcspn(newFilename, "\n")] = 0;
+                    appendTxtExtension(newFilename);
+                    decodeFromFileMorse(morseTree, newFilename);
+                }
+                break;
+            }
+
+            moveToLine(top + 15 + lineCount,0);
+            printf("Membaca baris: %s", morseLine);
+
+            char* plainText = decodeMorse(morseTree, morseLine);
+            moveToLine(top + 18 + lineCount, 0);
+            printf("Decoded: %s\n", plainText);
+            free(plainText);
+            lineCount += 2;
+        }
+        fclose(file);
     }
-    
-    fclose(file);
 }
 
 // Fungsi untuk membaca teks dari file dan mengencode ke Morse
-void encodeFromFileMorse(address morseTree, const char* filename) {
+void encodeFromFileMorse(address morseTree, char* filenames) {
+	char filename[100] = "files_input/";
+	strcat(filename, filenames);
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        	moveToLine(top+2, left);
+        moveToLine(top+2, left);
         fprintf(stderr, "FILE %s Tidak Ditemukan\n", filename);
-        return;
-    }
-    
-    char line[255];
-    while (fgets(line, sizeof(line), file) != NULL) {
-        // Menghapus karakter newline jika ada
-        size_t len = strlen(line);
-        if (len > 0 && line[len - 1] == '\n') {
-            line[len - 1] = '\0';
+        showCursor();
+        int selection = selectMenuFormToFile();
+        if (selection == 1) {
+            return;
         }
+        else if (selection == 0) {
+            clearDisplay(25);
+            moveToLine(top+2, left);
+            printf("Input file name: ");
+            char newFilename[255];
+            showCursor();
+            fgets(newFilename, sizeof(newFilename), stdin);
+            hideCursor();
+            newFilename[strcspn(newFilename, "\n")] = 0;
+            appendTxtExtension(newFilename);
+            encodeFromFileMorse(morseTree, newFilename);
+        }
+    } else {
+        char line[255];
+        int lineCount = 0;
+        while (fgets(line, sizeof(line), file) != NULL) {
+            size_t len = strlen(line);
+            if (len > 0 && line[len - 1] == '\n') {
+                line[len - 1] = '\0';
+            }
 
-        moveToLine(top+15, 0);
-        printf("Membaca baris: %s\n", line);
+            moveToLine(top + 15 + lineCount,0);
+            printf("Membaca baris: %s\n", line);
 
-        // Encode baris teks ke Morse
-        moveToLine(top+20, 0);
-        char* morseCode = translateToMorse(morseTree, line);
-        printf("Encode: %s\n", morseCode);
-        free(morseCode);
+            char* morseCode = translateToMorse(morseTree, line);
+            moveToLine(top + 18 + lineCount, 0);
+            printf("Encode: %s\n", morseCode);
+            free(morseCode);
+            lineCount += 2;
+        }
+        fclose(file);
     }
-    
-    fclose(file);
 }
 
 // Fungsi untuk menambahkan ekstensi .txt jika belum ada

@@ -19,6 +19,8 @@ int selectMenuEncode();
 // Pilihan menu decode
 int selectMenuDecode();
 
+
+int selectMenuFormToFile();
 int selectMenuAfterWriteToFile();
 
 // Menunggu user menekan spasi untuk melanjutkan
@@ -33,6 +35,7 @@ void displayMenuWriteToFile(int selected);
 
 void displayMenuAfterWriteToFile(int selected);
 	
+void displayMenuFormToFile(int selected);
 
 int selectMenuWriteToFile();
 
@@ -53,4 +56,6 @@ void clearDisplay(int headerTop);
 
 
 void displayTree(address root, int depth, bool *path, bool isRight);
+
+void opening();
 #endif
