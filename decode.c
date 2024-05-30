@@ -125,7 +125,6 @@ char decodePerMorse(address root, char* morseCode) {
 // Fungsi mengubah morse ke string
 char* decodeMorse(address Tree, char* morse){
 	
-//	printf("%s", morse);
 	
 	char* plainText = (char*)malloc(strlen(morse) * sizeof(char)); // Alokasi memori dinamis
     if (plainText == NULL) {

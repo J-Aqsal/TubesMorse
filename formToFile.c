@@ -17,15 +17,6 @@ bool isValidMorse(const char* str) {
     return true;
 }
 
-// Fungsi untuk menduplikasi string
-char* my_strdup(const char* str) {
-    char* dup = malloc(strlen(str) + 1);
-    if (dup != NULL) {
-        strcpy(dup, str);
-    }
-    return dup;
-}
-
 // Fungsi untuk membaca kode Morse dari file dan mendekodenya
 void decodeFromFileMorse(address morseTree, char* filenames) {
     int selectedMenuWriteToFile, selectedMenuAfterWriteToFile;
@@ -83,8 +74,10 @@ void decodeFromFileMorse(address morseTree, char* filenames) {
                 break;
             }
 
-            moveToLine(top + 15 + lineCount, 0);
-            printf("Membaca baris: %s", morseLine);
+            moveToLine(top + 15 + lineCount, -1);
+            printf("File Name: %s\n\n", filenames);
+            
+            printf("Line: %s", morseLine);
 
 	    	char* morseInputFile = malloc(strlen(morseLine) + 1);
 	    	strcpy(morseInputFile, morseLine);
@@ -139,7 +132,6 @@ void decodeFromFileMorse(address morseTree, char* filenames) {
                 }
             } while (selectedMenuAfterWriteToFile != 2 && selectedMenuWriteToFile != 3);
             lineCount += 2;
-//system("cls");
         }
         fclose(file);
     }
@@ -172,7 +164,7 @@ void encodeFromFileMorse(address morseTree, char* filenames) {
             encodeFromFileMorse(morseTree, newFilename);
         }
     } else {
-        char line[255];
+        char line[1024];
         int lineCount = 0;
         while (fgets(line, sizeof(line), file) != NULL) {
             size_t len = strlen(line);
@@ -180,14 +172,12 @@ void encodeFromFileMorse(address morseTree, char* filenames) {
                 line[len - 1] = '\0';
             }
 
-            moveToLine(top + 15 + lineCount,0);
-            printf("Membaca baris: %s\n", line);
+            moveToLine(top + 15 + lineCount, -1);
+            printf("File Name: %s\n\n", filenames);
+            printf("Line: %s\n\n", line);
 
             
-//	    	char* morseInputFile = malloc(strlen(morseLine) + 1);
-//	    	strcpy(morseInputFile, morseLine);
             char* morseCode = translateToMorse(morseTree, line);
-            moveToLine(top + 18 + lineCount, 0);
             printf("Encode: %s\n", morseCode);
             do {
                 selectedMenuWriteToFile = selectMenuWriteToFile();
@@ -236,7 +226,6 @@ void encodeFromFileMorse(address morseTree, char* filenames) {
                         break;
                 }
             } while (selectedMenuAfterWriteToFile != 2 && selectedMenuWriteToFile != 3);
-//            free(morseCode);
             lineCount += 2;
         }
         fclose(file);
