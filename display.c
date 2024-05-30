@@ -115,6 +115,8 @@ void displayMenuUtama(int selectedUtama) {
     printf("%s Character to Morse                      ", (selectedUtama == 1) ? "[>]" : "[ ]");
 	moveToLine(top+3, left);
     printf("%s Display Tree                      ", (selectedUtama == 2) ? "[>]" : "[ ]");
+	moveToLine(top+4, left);
+    printf("%s Display traversal in order node                      ", (selectedUtama == 3) ? "[>]" : "[ ]");
     hideCursor();
 }
 
@@ -211,15 +213,15 @@ int selectMenuUtama(){
         displayMenuUtama(selectedUtama);
         ch = getch();
         if (ch == 72) { // bawah
-            selectedUtama = (selectedUtama == 0) ? 2 : --selectedUtama;
+            selectedUtama = (selectedUtama == 0) ? 3 : --selectedUtama;
         } else if (ch == 80) { // atas
-            selectedUtama = (selectedUtama == 2) ? 0 : ++selectedUtama;
+            selectedUtama = (selectedUtama == 3) ? 0 : ++selectedUtama;
         }else if (ch == 13) { // Enter
             break;
         } else if (ch == 77) { // Kanan
             break;
         }else if (ch == 75) { // Kiri
-        	selectedUtama = 3;
+        	selectedUtama = 4;
             break;
         }
         
@@ -355,4 +357,14 @@ void opening(){
     moveToLine(top+4, left);printf("2. use enter or right arrow to confirm your selection");
     moveToLine(top+5, left);printf("3. use left arrow to go to previous menu");
     moveToLine(top+7, left);printf("Enjoyy!!");
+}
+// Fungsi untuk melakukan traversal inorder
+void inorderTraversal(address root) {
+    if (root != NULL) {
+        inorderTraversal(root->left);
+        if(root->data != ' '){
+        	printf("%c ", root->data);
+		}
+        inorderTraversal(root->right);
+    }
 }

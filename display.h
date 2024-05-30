@@ -58,4 +58,7 @@ void clearDisplay(int headerTop);
 void displayTree(address root, int depth, bool *path, bool isRight);
 
 void opening();
+
+
+void inorderTraversal(address root);
 #endif

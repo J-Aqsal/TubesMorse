@@ -14,6 +14,7 @@ int main() {
     extern top, left;
 	char cipher;
 	char* message;
+	char* inputanFile;
     int selectedMenuUtama, selectedMenuEncode, selectedMenuDecode, selectedMenuWriteToFile, selectedMenuAfterWriteToFile;
     address morseTree = buildMorseTree();
     header();
@@ -26,6 +27,7 @@ int main() {
 	header();
 	clearDisplay(top);
     do{
+    	clearDisplay(25);
     	selectedMenuUtama = selectMenuUtama();
     	switch(selectedMenuUtama){
 	    	clearDisplay(13);
@@ -45,15 +47,13 @@ int main() {
 							    }
 							    strcpy(morseInput, inputan);
 							    
-							    
 								char* hasil = decodeMorse(morseTree, inputan);
 							    
 								hideCursor();
 								
 								moveToLine(top+4, left);
 							    
-								printf("Text: %s", hasil);
-							    
+								printf("Text: %s", hasil);							    
     
 							    do{
 									selectedMenuWriteToFile = selectMenuWriteToFile();
@@ -221,8 +221,17 @@ int main() {
 			    header();
 				break;
 			}
+			case 3:{
+				clearDisplay(25);
+				moveToLine(top,left);
+				inorderTraversal(morseTree);
+				moveToLine(top+8, left);
+				spaceToContinue();
+			
+				break;
+			}
         }
-    } while(selectedMenuUtama != 3);
+    } while(selectedMenuUtama != 4);
 	
 	moveToLine(38, 0);
 //	printf("ty");

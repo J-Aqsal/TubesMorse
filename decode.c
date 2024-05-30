@@ -77,22 +77,28 @@ address buildMorseTree() {
     root->right->right->right->right->right = createNode('0');
     
     // Node tambahan
-    root->left->right->left->right->left = createNode('\0');
     root->left->right->left->left->right = createNode('\0');
     root->left->left->right->right->left = createNode('\0');
+    root->right->left->right->right->left = createNode('\0');
+    root->right->left->right->right->right = createNode('\0');
     root->right->left->right->left->right = createNode('\0');
     root->right->right->left->left->right = createNode('\0');
     root->right->right->right->right->left->left = createNode('\0');
     
     // Simbol
     root->right->left->left->left->right = createNode('=');
+    root->left->right->left->right->left = createNode('+');
+//    
+    root->right->left->left->right->left = createNode('/');
     root->right->left->left->left->left->right = createNode('-');
     root->left->left->right->right->left->left = createNode('?');
     root->left->right->left->left->right->left = createNode('"');
     root->left->right->left->right->left->right = createNode('.');
     root->right->right->left->left->right->right = createNode(',');
     root->right->left->right->left->right->right = createNode('!');
-    root->right->right->right->right->left->left->left = createNode(':');
+    root->right->left->right->right->right->left = createNode('(');
+    root->right->left->right->right->left->right = createNode(')');
+    root->right->right->right->left->left->left = createNode(':');
     
     return root;
 }
@@ -119,31 +125,33 @@ char decodePerMorse(address root, char* morseCode) {
 // Fungsi mengubah morse ke string
 char* decodeMorse(address Tree, char* morse){
 	
-	char* plainText = (char*)malloc(255 * sizeof(char));
+//	printf("%s", morse);
+	
+	char* plainText = (char*)malloc(strlen(morse) * sizeof(char)); // Alokasi memori dinamis
     if (plainText == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(1);
     }
-	int j=0;
-	// Proses setiap kata Morse dalam pesan secara terpisah
+    int j = 0;
+    // Proses setiap kata Morse dalam pesan secara terpisah
     char* token = strtok(morse, " ");
-    
+
     while (token != NULL) {
         if (strcmp(token, "/") == 0) {
-        	plainText[j++] = ' ';
+            plainText[j++] = ' ';
         } else {
-        	plainText[j++] = decodePerMorse(Tree, token);
+            plainText[j++] = decodePerMorse(Tree, token);
         }
         token = strtok(NULL, " ");
     }
     plainText[j] = '\0';
-    
+
     return plainText;
 }
 
 // user input morse
 char* readMorseInput(){
-    static char morseInput[255];
+    static char morseInput[1024];
     int j = 0;
     char ch;
     showCursor();
@@ -177,7 +185,7 @@ char* readMorseInput(){
 	printf("                                                 ");
     moveToLine(top+12, left);
 	printf("                                                 ");
-    moveToLine(top+2, left);;printf("Morse code: ");
+    moveToLine(top+2, left);printf("Morse code: ");
 	
 	// Membaca input karakter demi karakter menggunakan getch
     while ((ch = getch()) != '\r') {
@@ -188,16 +196,21 @@ char* readMorseInput(){
             morseInput[j++] = '-';
             printf("-");
         } else if (ch == ' ') {
-            morseInput[j++] = ' ';
-            printf(" ");
+        	if(morseInput[j] != ' '){
+        		
+	            morseInput[j++] = ' ';
+	            printf(" ");
+			}
         } else if (ch == '\b') {
             if (j > 0) {
                 morseInput[j--] = ' ';
                 printf("\b \b");
             }
         } else if (ch == '/') {
+            morseInput[j++] = ' ';
             morseInput[j++] = '/';
-            printf("/");
+            morseInput[j++] = ' ';
+            printf(" / ");
         } else {
 //        	printf("%c", ch);
             continue;
