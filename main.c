@@ -97,7 +97,7 @@ int main() {
 								}while(selectedMenuAfterWriteToFile != 2 && selectedMenuWriteToFile == 2);
                                 
 							}while(selectedMenuAfterWriteToFile != 2 && selectedMenuWriteToFile != 3 );
-							clearDisplay(25);
+							clearDisplay(23);
 							break;
 							
 	    				case 1:

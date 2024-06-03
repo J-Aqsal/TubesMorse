@@ -290,8 +290,8 @@ void clearDisplay(int headerTop){
 void spaceToContinue(){
 	printf("\033[38;2;200;100;255mPress space to continue\033[0m");
     while(getch() != ' '); // menunggu user menekan spasi untuk melanjutkan
-    system("cls");
-    header();
+//    system("cls");
+//    header();
 }
 
 void displayTree(address root, int depth, bool *path, bool isRight) {
