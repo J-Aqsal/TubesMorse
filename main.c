@@ -64,7 +64,7 @@ int main() {
 	                                        break;
 	                                    case 1:
 											clearDisplay(top+8);
-	                                        handleFileSaving(inputan);
+	                                        handleFileSaving(hasil);
 											moveToLine(top+14, left);
 	                                        spaceToContinue();
 	                                        hideCursor();
